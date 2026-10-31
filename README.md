@@ -9,12 +9,14 @@
 | 调用大模型 API（DeepSeek，OpenAI 兼容协议） | ✅ 已完成 |
 | FastAPI 服务，`/chat` + `/health` 接口 | ✅ 已完成 |
 | 资料注入 prompt，约束模型只依据资料回答 | ✅ 已完成 |
-| 文档上传 → 解析 → 切分 | 🚧 开发中 |
+| 文档加载与切分（chunk + overlap） | 🚧 开发中 |
+| 文档上传接口 | 📋 计划中 |
 | 向量检索（embedding + 向量库） | 📋 计划中 |
 | 评测（黄金集 + 命中率） | 📋 计划中 |
 | Docker 部署 | 📋 计划中 |
 
-> 当前版本把一段固定资料直接拼进 prompt，是 RAG 的最小雏形，**还不算真正的检索增强**——没有检索，只有注入。
+> 当前版本把资料直接拼进 prompt，是 RAG 的最小雏形，**还不算真正的检索增强**——没有检索，只有注入。
+> 语料为两份公开政策文件（《生成式人工智能服务管理暂行办法》《人工智能生成合成内容标识办法》），放在 `data/docs/`。
 
 ## 快速开始
 
@@ -23,3 +25,39 @@ pip install -r requirements.txt
 cp .env.example .env      # Windows: copy .env.example .env
 # 编辑 .env，填入你的 key
 uvicorn app.main:app --reload
+```
+
+打开 http://127.0.0.1:8000/docs ，在 `/chat` 里提问。
+
+## 接口
+
+| 方法 | 路径 | 说明 |
+|---|---|---|
+| GET | `/health` | 健康检查 |
+| POST | `/chat` | body: `{"question": "..."}` → `{"answer": "...", "sources": []}` |
+
+`sources` 目前为空数组，预留给后续检索结果（答案引用了原文哪几段）。
+
+## 技术栈
+
+- Python 3.12 / FastAPI / Pydantic（自动校验 + 自动 API 文档）
+- OpenAI Python SDK（指向 DeepSeek，兼容协议）
+- python-dotenv（密钥不写进代码）
+- 依赖版本锁定，避免 SDK 大版本升级导致接口不兼容
+
+## 踩过的坑
+
+1. `python -m venv` 创建虚拟环境失败（ensurepip 报错），改用 PyCharm 自建环境解决。
+2. `requirements.txt` 拼写错误（`uvivorn`、`python-dotenvs`）导致 `pip install -r` 直接失败。
+3. `.env` 变量名写成 `LLM_APT_KEY`，读不到 key——排查时应先打印变量名，而不是怀疑代码。
+4. 中文乱码：同一文件用不同编码读取，显示结果不同；命令行乱码不代表文件坏了。
+5. 真实文档的标题重复、段落粘连——后续需要加清洗步骤。
+6. 用相对路径 `Path("data/docs")` 读文件，换个目录运行就读不到（返回 0 个文档）——改用 `Path(__file__).resolve().parent` 作为基准，并在目录不存在时抛错而不是静默返回空列表。
+
+## 后续计划
+
+- [ ] 文档上传与解析（PDF / Markdown）
+- [ ] 文本切分（chunk + overlap）
+- [ ] embedding + 向量检索
+- [ ] 答案引用溯源
+- [ ] 评测集与指标
