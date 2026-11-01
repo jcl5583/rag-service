@@ -102,6 +102,6 @@ def chat(req: ChatRequest):
     )
     return {
         "answer": resp.choices[0].message.content,
-        "sources": [h["source"] for h in hits],
+        "sources": [{"doc": h["source"], "text": h["text"]} for h in hits],
         "context_chars": len(context),  # ← 加这行，评测时能算出平均上下文长度
     }

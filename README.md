@@ -133,3 +133,6 @@ python eval/run_eval.py
 - [ ] 答案引用溯源（返回原文片段）
 - [ ] 文档上传接口（PDF / Markdown）
 - [ ] Docker 部署
+## 界面
+
+![界面截图](docs/screenshot.png)
