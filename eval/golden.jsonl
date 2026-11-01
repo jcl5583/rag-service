@@ -1,0 +1,20 @@
+{"q": "生成式人工智能服务管理暂行办法什么时候施行？", "type": "answerable", "expect": ["2023年8月15日"]}
+{"q": "人工智能生成合成内容标识办法什么时候施行？", "type": "answerable", "expect": ["2025年9月1日"]}
+{"q": "训练数据需要满足什么要求？", "type": "answerable", "expect": ["合法来源"]}
+{"q": "训练数据涉及个人信息时怎么办？", "type": "answerable", "expect": ["同意"]}
+{"q": "数据标注有什么要求？", "type": "answerable", "expect": ["标注规则"]}
+{"q": "对未成年人用户有什么保护措施？", "type": "answerable", "expect": ["未成年"]}
+{"q": "提供者需要建立什么机制来处理公众投诉？", "type": "answerable", "expect": ["投诉"]}
+{"q": "哪些情形需要开展安全评估并履行算法备案？", "type": "answerable", "expect": ["舆论属性", "社会动员"]}
+{"q": "提供者发现违法内容应该怎么处理？", "type": "answerable", "expect": ["停止生成", "消除", "报告"]}
+{"q": "境外向境内提供服务不符合规定怎么处理？", "type": "answerable", "expect": ["通知有关机构", "技术措施", "处置"]}
+{"q": "违反规定可能受到什么处罚？", "type": "answerable", "expect": ["警告", "责令"]}
+{"q": "生成式人工智能技术的定义是什么？", "type": "answerable", "expect": ["文本", "图片"]}
+{"q": "图片应该怎么添加标识？", "type": "answerable", "expect": ["显著"]}
+{"q": "显式标识和隐式标识有什么区别？", "type": "answerable", "expect": ["显式", "隐式"]}
+{"q": "用户申请不含显式标识的内容时，日志至少要留存多久？", "type": "answerable", "expect": ["六个月", "6个月"]}
+{"q": "违反规定要罚多少钱？", "type": "unanswerable", "expect": []}
+{"q": "算法备案需要多少个工作日能办下来？", "type": "unanswerable", "expect": []}
+{"q": "训练数据最少需要多少条？", "type": "unanswerable", "expect": []}
+{"q": "这个服务一年收费多少钱？", "type": "unanswerable", "expect": []}
+{"q": "公司需要配备多少名内容审核人员？", "type": "unanswerable", "expect": []}
