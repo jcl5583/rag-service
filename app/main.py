@@ -6,6 +6,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 from app.splitter import load_documents, split_by_paragraph
 from app.retriever import Retriever
+TOP_K = int(os.getenv("TOP_K", "5"))
 
 load_dotenv()
 
@@ -70,7 +71,7 @@ def health():
 #     }
 @app.post("/chat")
 def chat(req: ChatRequest):
-    hits = retriever.search(req.question, top_k=3)
+    hits = retriever.search(req.question, top_k=TOP_K)
     context = "\n\n---\n\n".join(
         f"[{i + 1}] {h['source']}\n{h['text']}" for i, h in enumerate(hits)
     )
@@ -93,4 +94,5 @@ def chat(req: ChatRequest):
     return {
         "answer": resp.choices[0].message.content,
         "sources": [h["source"] for h in hits],
+        "context_chars": len(context),  # ← 加这行，评测时能算出平均上下文长度
     }
