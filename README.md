@@ -1,7 +1,17 @@
 # RAG Service
 
 一个基于 FastAPI 的文档问答服务：把资料交给大模型，让它只根据资料回答；资料里没有的，就说"没有"。
+## 项目结构
 
+app/
+  main.py             FastAPI 入口，/chat 与 /chat/stream
+  splitter.py         文档加载 + 按段落切分
+  retriever.py        BM25 检索
+  embedder.py         bge-m3 向量检索 + 余弦相似度
+  hybrid_retriever.py BM25 + 向量，RRF 融合
+frontend/app.py       Streamlit 界面
+eval/                 黄金集与回归测试
+data/docs/            测试语料
 ## 当前进度
 
 | 能力 | 状态 |
@@ -132,7 +142,12 @@ python eval/run_eval.py
 - [x] embedding 向量检索 + 混合检索
 - [ ] 答案引用溯源（返回原文片段）
 - [ ] 文档上传接口（PDF / Markdown）
-- [ ] Docker 部署
+- [x] Docker 部署
 ## 界面
 
 ![界面截图](docs/screenshot.png)
+
+## 部署
+
+```bash
+docker compose up --build
