@@ -1,0 +1,16 @@
+# 这些文件不进镜像
+.venv
+.git
+.idea
+__pycache__
+*.pyc
+*.db
+
+# 密钥绝不进镜像，运行时用 --env-file 传
+.env
+
+# 向量缓存：镜像里重新算，避免维度不匹配
+data/vectors.json
+
+# 前端本地配置
+.streamlit
