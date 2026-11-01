@@ -1,0 +1,10 @@
+{"q": "这个管理办法从哪天开始生效？", "type": "answerable", "expect": ["2023年8月15日"]}
+{"q": "服务商用网上的文章训练模型，会不会侵权？", "type": "answerable", "expect": ["知识产权"]}
+{"q": "被AI生成的内容骗了，可以去哪儿告？", "type": "answerable", "expect": ["投诉"]}
+{"q": "小孩子用AI会不会上瘾，有规定吗？", "type": "answerable", "expect": ["未成年"]}
+{"q": "AI画出来的画，怎么让人一眼看出来是AI做的？", "type": "answerable", "expect": ["显式标识", "显著"]}
+{"q": "偷偷把AI水印抹掉，允许吗？", "type": "answerable", "expect": ["不得", "篡改"]}
+{"q": "发布AI视频的平台要不要负责核验？", "type": "answerable", "expect": ["核验"]}
+{"q": "生成合成内容标识的规定哪天开始生效？", "type": "answerable", "expect": ["2025年9月1日"]}
+{"q": "公司用AI做客服，要告诉用户对面是机器人吗？", "type": "answerable", "expect": ["交互场景", "提示标识", "显式标识"]}
+{"q": "用户想拿到没有水印的AI内容，需要什么条件？", "type": "answerable", "expect": ["服务协议", "标识义务"]}

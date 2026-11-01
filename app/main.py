@@ -6,6 +6,8 @@ from openai import OpenAI
 from pydantic import BaseModel
 from app.splitter import load_documents, split_by_paragraph
 from app.retriever import Retriever
+from app.embedder import VectorRetriever
+from app.hybrid_retriever import HybridRetriever
 TOP_K = int(os.getenv("TOP_K", "5"))
 
 load_dotenv()
@@ -34,7 +36,14 @@ for doc in load_documents():
         CHUNKS.append({"source": doc["source"], "text": chunk})
 
 ALL_CONTEXT = "\n\n---\n\n".join(c["text"] for c in CHUNKS)
-retriever = Retriever(CHUNKS)
+RETRIEVER_KIND = os.getenv("RETRIEVER", "bm25")
+if RETRIEVER_KIND == "vector":
+    retriever = VectorRetriever(CHUNKS)
+elif RETRIEVER_KIND == "hybrid":
+    retriever = HybridRetriever(CHUNKS)
+else:
+    retriever = Retriever(CHUNKS)
+print(f"检索方式：{RETRIEVER_KIND}")
 
 print(f"已加载 {len(CHUNKS)} 个文本块，总长度 {len(ALL_CONTEXT)} 字")
 

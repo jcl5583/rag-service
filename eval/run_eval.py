@@ -1,9 +1,8 @@
 """黄金集回归测试。
 
 用法（必须先在 rag_service 目录下）：
-    python eval/run_eval.py
-
-每次改动检索 / prompt / 切分之后，都跑一遍，看通过率有没有退步。
+    python eval/run_eval.py                              # 默认跑 golden.jsonl
+    python eval/run_eval.py eval/golden_hard.jsonl       # 跑指定测试集
 """
 
 import json
@@ -16,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 
 from app.main import ChatRequest, chat  # noqa: E402
 
-GOLDEN = Path(__file__).resolve().parent / "golden.jsonl"
+DEFAULT_GOLDEN = Path(__file__).resolve().parent / "golden.jsonl"
 
 # 拒答时可能出现的说法
 REFUSAL_WORDS = [
@@ -50,11 +49,21 @@ def check(item: dict, answer: str) -> tuple[bool, str]:
 
 
 def main() -> None:
+    if len(sys.argv) > 1:
+        golden = Path(sys.argv[1])
+    else:
+        golden = DEFAULT_GOLDEN
+
+    if not golden.exists():
+        raise SystemExit(f"测试集不存在：{golden}")
+
     items = [
         json.loads(line)
-        for line in GOLDEN.read_text(encoding="utf-8").splitlines()
+        for line in golden.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
+
+    print(f"测试集：{golden.name}，共 {len(items)} 条\n")
 
     passed = 0
     context_sizes = []
